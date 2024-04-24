@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+}
+.home {
+  display: flex;
+  background-color: lightblue;
+  flex-direction: column;
+  border-radius: 4px;
+  overflow: hidden;
+}
