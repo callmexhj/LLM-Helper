@@ -1,9 +1,11 @@
+import styles from './styles.module.scss'
+
 const ChatBox = () => {
-  return (
-    <div>
-      <p>ChatBox</p>
-    </div>
-  )
+    return (
+        <div className={styles.chatbox}>
+            <p>ChatBox</p>
+        </div>
+    )
 }
 
 export default ChatBox

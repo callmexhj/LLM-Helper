@@ -1,0 +1,23 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    background-color: #bae0ffa0;
+    height: 100%;
+    padding: 20px;
+    &-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        h1 {
+            font-size: var(--fontsize-1st);
+            line-height: var(--fontheight-1st);
+            color: var(--fontcolor-1st-dark);
+        }
+        img {
+            height: 40px;
+            width: 40px;
+            opacity: 0.8;
+        }
+    }
+}

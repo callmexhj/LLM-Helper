@@ -1,4 +1,8 @@
 .content {
-  background-color: lightgreen;
-  height: 100px;
+    display: flex;
+    &-chat {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
 }
