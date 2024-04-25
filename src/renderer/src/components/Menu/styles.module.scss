@@ -5,11 +5,12 @@
 	width: 200px;
 	background-color: #e6f4ff;
 	height: 100%;
-	padding: 20px;
+	padding: 10px 20px;
 	&-title {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		height: 50px;
 		h1 {
             user-select: none;
 			font-size: var(--fontsize-1st);
