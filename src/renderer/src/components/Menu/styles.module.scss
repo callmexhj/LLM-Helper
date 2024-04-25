@@ -1,8 +1,9 @@
 .menu {
+    -webkit-app-region: drag;
 	display: flex;
 	flex-direction: column;
 	width: 200px;
-	background-color: #bae0ffa0;
+	background-color: #e6f4ff;
 	height: 100%;
 	padding: 20px;
 	&-title {
@@ -10,6 +11,7 @@
 		align-items: center;
 		justify-content: space-between;
 		h1 {
+            user-select: none;
 			font-size: var(--fontsize-1st);
 			line-height: var(--fontheight-1st);
 			color: var(--fontcolor-1st-dark);

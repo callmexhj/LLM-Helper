@@ -8,3 +8,7 @@ body {
 	border-radius: 10px;
 	overflow: hidden;
 }
+/* 隐藏所有滚动条 */
+::-webkit-scrollbar {
+  display: none;
+}

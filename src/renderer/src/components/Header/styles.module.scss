@@ -1,8 +1,10 @@
 .header {
+    -webkit-app-region: drag;
 	display: flex;
 	justify-content: space-between;
 	background-color: var(--background-light);
 	padding: 10px;
+    border-bottom: 1px solid var(--border-light);
 	&-left {
 		display: flex;
 		flex-direction: column;
@@ -18,11 +20,10 @@
 		}
 	}
 	&-right {
+        float: right;
+        width: 120px;
 		display: flex;
+        justify-content: space-between;
 		line-height: var(--lineheight-1st);
-		&-ico {
-			display: inline;
-			line-height: var(--lineheight-1st);
-		}
 	}
 }
