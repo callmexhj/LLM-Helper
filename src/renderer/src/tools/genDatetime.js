@@ -5,6 +5,7 @@ export default () => {
 	let day = now.getDate().toString().padStart(2, '0')
 	let hours = now.getHours().toString().padStart(2, '0')
 	let minutes = now.getMinutes().toString().padStart(2, '0')
+	let seconds = now.getSeconds().toString().padStart(2, '0')
 
-	return `${year}-${month}-${day} ${hours}:${minutes}`
+	return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
 }

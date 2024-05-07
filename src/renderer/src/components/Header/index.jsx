@@ -1,12 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './styles.module.scss'
 import Ico from '../Icos'
+import { useSelector } from 'react-redux'
 
 const HeaderLeft = () => {
+	const { selectedChatId, chatList } = useSelector((state) => state.chat)
+	const [mainTitle, setMainTitle] = useState('')
+	const [subTitle, setSubTitle] = useState('')
+
+	// 选择对话更改后，同步修改Header
+	useEffect(() => {
+		const mainTitleFromStore = chatList.find((item) => item.id === selectedChatId)?.title
+		const subTitleFromStore = chatList.find((item) => item.id === selectedChatId)?.chatAbstract
+		setMainTitle(mainTitleFromStore)
+		setSubTitle(subTitleFromStore)
+	}, [selectedChatId])
 	return (
 		<div className={styles['header-left']}>
-			<span className={styles['header-left-maintitle']}>Header MainTitle</span>
-			<span className={styles['header-left-subtitle']}>Header SubTitle</span>
+			<span className={styles['header-left-maintitle']}>{mainTitle}</span>
+			<span className={styles['header-left-subtitle']}>{subTitle}</span>
 		</div>
 	)
 }

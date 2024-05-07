@@ -2,9 +2,10 @@ import { useEffect } from 'react'
 import styles from './styles.module.scss'
 import Content from '@renderer/components/Content'
 import { useSelector, useDispatch } from 'react-redux'
-import { setChatList, updateChatDate, setSelectedChatId } from '@renderer/store/slice/chatSlice'
+// import { setChatList, updateChatDate } from '@renderer/store/slice/chatSlice'
+import { setChatList } from '@renderer/store/slice/chatSlice'
 import { createChatItem } from '@renderer/tools/genChatItem'
-import genDatetime from '@renderer/tools/genDatetime'
+// import genDatetime from '@renderer/tools/genDatetime'
 
 const Home = () => {
 	const dispatch = useDispatch()
@@ -12,14 +13,15 @@ const Home = () => {
 	useEffect(() => {
 		if (!chatList.length) {
 			dispatch(setChatList([createChatItem()]))
-		} else if (chatList.length && chatList[0].messages.length === 0) {
-			dispatch(
-				updateChatDate({
-					chatId: chatList[0].id,
-					newDate: genDatetime()
-				})
-			)
 		}
+		// else if (chatList.length && chatList[0].messages.length === 0) {
+		// 	dispatch(
+		// 		updateChatDate({
+		// 			chatId: chatList[0].id,
+		// 			newDate: genDatetime()
+		// 		})
+		// 	)
+		// }
 	}, [])
 	return (
 		<div className={styles.home}>

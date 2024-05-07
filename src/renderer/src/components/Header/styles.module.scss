@@ -8,6 +8,8 @@
 	&-left {
 		display: flex;
 		flex-direction: column;
+		float: left;
+		-webkit-app-region: none;
 		&-maintitle {
 			font-size: var(--fontsize-1st);
 			line-height: var(--lineheight-1st);
