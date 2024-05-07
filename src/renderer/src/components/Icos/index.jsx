@@ -1,3 +1,5 @@
+// 由于支持的svg有限，故本组件待废弃
+
 import PropTypes from 'prop-types'
 import styles from './styles.module.scss'
 

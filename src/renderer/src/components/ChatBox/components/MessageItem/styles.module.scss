@@ -25,4 +25,8 @@
         line-height: var(--lineheight-3rd);
         color: var(--fontcolor-3rd-dark);
     }
+    &-avatar {
+        width: fit-content;
+        cursor: pointer;
+    }
 }
