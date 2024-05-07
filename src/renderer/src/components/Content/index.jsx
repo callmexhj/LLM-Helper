@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Header from '../Header'
 import Menu from '../Menu'
 import ChatBox from '../ChatBox'
@@ -17,13 +17,23 @@ const theme = () => {
 }
 
 const Content = () => {
-	const { chatList } = useSelector((state) => state.chat)
+	const { chatList, selectedChatId } = useSelector((state) => state.chat)
+	const [messages, setMessages] = useState([])
 	const dispatch = useDispatch()
 
 	// 默认指向第一个对话
 	useEffect(() => {
 		chatList.length > 0 && dispatch(setSelectedChatId(chatList[0].id))
 	}, [chatList])
+
+	useEffect(() => {
+		if (chatList.length > 0) {
+			const messagesCache = chatList.find((item) => {
+				return item.id === selectedChatId
+			})?.messages
+			setMessages(messagesCache)
+		}
+	}, [selectedChatId])
 
 	const changeChat = (chatId) => {
 		dispatch(setSelectedChatId(chatId))
@@ -55,7 +65,7 @@ const Content = () => {
 				</div>
 				<div className={styles['content-chat']}>
 					<Header />
-					<ChatBox />
+					<ChatBox messages={messages} />
 				</div>
 			</div>
 		</ConfigProvider>

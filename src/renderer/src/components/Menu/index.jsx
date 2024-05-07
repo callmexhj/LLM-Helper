@@ -76,7 +76,7 @@ const MenuButtonGroup = ({ createNewChat }) => {
 				icon={<PlusOutlined />}
 				onClick={createNewChat}
 			>
-				新增聊天
+				新增对话
 			</Button>
 		</div>
 	)

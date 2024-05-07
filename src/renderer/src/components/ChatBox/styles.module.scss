@@ -1,4 +1,28 @@
 .chatbox {
 	background-color: var(--background-light);
-    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    &-messages {
+        padding: 20px;
+        overflow: auto;
+        height: 200px;
+        flex: 1;
+    }
+}
+/* 强制始终显示滚动条 */
+.chatbox-messages::-webkit-scrollbar {
+	display: block !important;
+	width: 5px; /* 定义滚动条宽度 */
+	margin-left: 10px;
+}
+
+.chatbox-messages::-webkit-scrollbar-thumb {
+	background-color: #d9d9d9; /* 可以更改为你想要的手柄颜色 */
+	border-radius: 5px; /* 可以更改为你想要的圆角大小 */
+	cursor: pointer;
+}
+
+.chatbox-messages::-webkit-scrollbar-track {
+	background-color: #e6f4ff; /* 可以更改为你想要的背景颜色 */
 }
