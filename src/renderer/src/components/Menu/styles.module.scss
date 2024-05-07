@@ -1,0 +1,117 @@
+.menu {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	width: 280px;
+	background-color: #e6f4ff;
+	height: 100%;
+	// padding: 10px 20px;
+	&-title {
+		-webkit-app-region: drag;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 50px;
+		margin-bottom: 25px;
+		padding: 10px 20px 0 20px;
+		h1 {
+			user-select: none;
+			font-size: var(--fontsize-1st);
+			line-height: var(--fontheight-1st);
+			color: var(--fontcolor-1st-dark);
+		}
+		img {
+			height: 40px;
+			width: 40px;
+			opacity: 0.8;
+		}
+	}
+	&-button-group {
+		display: flex;
+		margin: 0 0 20px 0;
+		padding: 0 20px;
+		&-item {
+			width: 100%;
+		}
+	}
+	.menu-lists {
+		flex: 0.95;
+		overflow-y: auto;
+		box-sizing: border-box;
+		padding: 0 10px 0 20px;
+		margin-right: 10px;
+		.menu-item {
+			cursor: pointer;
+			box-sizing: border-box;
+			padding: 10px;
+			height: 70px;
+			margin-bottom: 20px;
+			border-radius: 10px;
+			background-color: #fafafa;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			border: 2px solid #fafafa;
+			&-top {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+			}
+			&-ico {
+				height: 14px;
+				width: 14px;
+				color: var(--fontcolor-2nd-dark);
+			}
+			&-title {
+				width: 80%;
+				font-size: var(--fontsize-2nd);
+				line-height: var(--lineheight-2nd);
+				color: var(--fontcolor-1st-dark);
+				font-weight: bold;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			&-bottom {
+				display: flex;
+				justify-content: space-between;
+			}
+			&-chat-abstract {
+				width: 40%;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				font-size: var(--fontsize-3rd);
+				line-height: var(--lineheight-3rd);
+				color: var(--fontcolor-2nd-dark);
+			}
+			&-chat-date {
+				font-size: var(--fontsize-3rd);
+				line-height: var(--lineheight-3rd);
+				color: var(--fontcolor-2nd-dark);
+			}
+			&-checked {
+				border: 2px solid #bae0ff;
+			}
+		}
+		.menu-item:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+/* 强制始终显示滚动条 */
+.menu-lists::-webkit-scrollbar {
+	display: block !important;
+	width: 5px; /* 定义滚动条宽度 */
+	margin-left: 10px;
+}
+
+.menu-lists::-webkit-scrollbar-thumb {
+	background-color: #d9d9d9; /* 可以更改为你想要的手柄颜色 */
+	border-radius: 5px; /* 可以更改为你想要的圆角大小 */
+	cursor: pointer;
+}
+
+.menu-lists::-webkit-scrollbar-track {
+	background-color: #e6f4ff; /* 可以更改为你想要的背景颜色 */
+}
