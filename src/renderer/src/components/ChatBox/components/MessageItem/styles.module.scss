@@ -2,6 +2,7 @@
 	display: flex;
     flex-direction: column;
     width: 100%;
+    margin-bottom: 5px;
     &-user {
         align-items: flex-end;
         .message-item-message {
@@ -18,6 +19,7 @@
         width: max-content;
         padding: 10px;
         border-radius: 10px;
+        white-space: pre-wrap;
         color: var(--fontcolor-2nd-dark);
     }
     &-subinfo {

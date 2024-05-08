@@ -19,6 +19,13 @@ const InputArea = ({ onSubmit }) => {
 		setValue('')
 	}
 
+	const handleKeyPress = (e) => {
+		if (e && e.key === 'Enter' && !e.shiftKey) {
+			e && e.preventDefault()
+			handleOnSubmit()
+		}
+	}
+
 	return (
 		<div className={styles['input-area']}>
 			{contextHolder}
@@ -38,10 +45,11 @@ const InputArea = ({ onSubmit }) => {
 					<div className={styles['input-area-inputbox-input']}>
 						<TextArea
 							value={value}
-							placeholder="请输入提问内容"
+							placeholder="请输入提问内容，按Enter快捷发送，Shift+Enter换行"
 							onChange={(e) => setValue(e.target.value)}
 							autoSize={{ minRows: 3, maxRows: 3 }}
 							style={{ width: '100%', border: 'none' }}
+							onKeyPress={handleKeyPress}
 						/>
 					</div>
 					<div className={styles['input-area-inputbox-button']}>

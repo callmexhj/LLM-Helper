@@ -27,6 +27,7 @@ const Content = () => {
 	const [messages, setMessages] = useState([])
 	const dispatch = useDispatch()
 
+	// 根据选取的chatId，更新messages
 	useEffect(() => {
 		if (chatList.length > 0) {
 			const messagesCache = chatList.find((item) => {
@@ -36,6 +37,7 @@ const Content = () => {
 		}
 	}, [selectedChatId])
 
+	// 在chatList长度变化时，更新selectedChatId
 	useEffect(() => {
 		if (chatList.length > 0) {
 			dispatch(setSelectedChatId(chatList[0].id))
@@ -43,7 +45,7 @@ const Content = () => {
 			dispatch(setSelectedChatId(''))
 			setMessages([])
 		}
-	}, [chatList])
+	}, [chatList.length])
 
 	const changeChat = (chatId) => {
 		dispatch(setSelectedChatId(chatId))
@@ -52,19 +54,16 @@ const Content = () => {
 	const createNewChat = () => {
 		const chatListCache = [...chatList]
 		chatListCache.unshift(createChatItem())
-		console.log(chatListCache)
 		dispatch(setChatList(chatListCache))
 	}
 
 	const handleDeleteChat = (chatId) => {
-		// const chatListCache = [...chatList.filter((item) => item.id !== chatId)]
 		dispatch(deleteChat(chatId))
 	}
 
-	// 更新message数组
+	// 更新message数组，并修改redux中的message数组
 	const onSubmit = (value) => {
 		return new Promise((resolve) => {
-			console.log(value)
 			const messageCache = [...messages]
 			messageCache.push({
 				role: 'user',
