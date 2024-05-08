@@ -3,7 +3,13 @@ import Ico from '@renderer/assets/chatIco.png'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Button } from 'antd'
-import { PlusOutlined, CloseOutlined } from '@ant-design/icons'
+import {
+	PlusOutlined,
+	CloseOutlined,
+	SettingOutlined,
+	ClearOutlined,
+	GithubOutlined
+} from '@ant-design/icons'
 
 const MenuTitle = () => (
 	<div className={styles['menu-title']}>
@@ -68,7 +74,7 @@ MenuList.propTypes = {
 	deleteChat: PropTypes.func
 }
 
-const MenuButtonGroup = ({ createNewChat }) => {
+const TopMenuButtonGroup = ({ createNewChat }) => {
 	return (
 		<div className={styles['menu-button-group']}>
 			<Button
@@ -81,16 +87,43 @@ const MenuButtonGroup = ({ createNewChat }) => {
 		</div>
 	)
 }
-MenuButtonGroup.propTypes = {
+TopMenuButtonGroup.propTypes = {
 	createNewChat: PropTypes.func
 }
+
+const BottomMenuButtonGroup = () => {
+	return (
+		<div className={styles['menu-button-group-bottom']}>
+			<Button
+				className={styles['menu-button-group-bottom-item']}
+				shape="circle"
+				danger
+				icon={<ClearOutlined />}
+			/>
+			<Button
+				className={styles['menu-button-group-bottom-item']}
+				shape="circle"
+				icon={<SettingOutlined />}
+			/>
+			<Button
+				className={styles['menu-button-group-bottom-item']}
+				shape="circle"
+				icon={<GithubOutlined />}
+			/>
+		</div>
+	)
+}
+// BottomMenuButtonGroup.propTypes = {
+// 	createNewChat: PropTypes.func
+// }
 
 const Menu = ({ menuList, changeChat, createNewChat, deleteChat }) => {
 	return (
 		<div className={styles.menu}>
 			<MenuTitle />
-			<MenuButtonGroup createNewChat={createNewChat} />
+			<TopMenuButtonGroup createNewChat={createNewChat} />
 			<MenuList list={[...menuList]} changeChat={changeChat} deleteChat={deleteChat} />
+			<BottomMenuButtonGroup />
 		</div>
 	)
 }
