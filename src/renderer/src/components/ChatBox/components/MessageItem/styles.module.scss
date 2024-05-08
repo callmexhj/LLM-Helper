@@ -1,7 +1,7 @@
 .message-item {
 	display: flex;
     flex-direction: column;
-    width: 100%;
+    // width: fit-content;
     margin-bottom: 5px;
     &-user {
         align-items: flex-end;
@@ -17,8 +17,10 @@
     &-message {
         margin: 2px 0;
         width: max-content;
+        max-width: 80%;
         padding: 10px;
         border-radius: 10px;
+        word-wrap: break-word;
         white-space: pre-wrap;
         color: var(--fontcolor-2nd-dark);
     }
