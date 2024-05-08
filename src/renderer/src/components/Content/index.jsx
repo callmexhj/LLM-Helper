@@ -10,9 +10,11 @@ import {
 	updateChatMessage,
 	deleteChat
 } from '@renderer/store/slice/chatSlice'
+import { setIsShowSystemSetting } from '@renderer/store/slice/systemSlice'
 import { ConfigProvider, message } from 'antd'
 import { createChatItem } from '@renderer/tools/genChatItem'
 import genDatetime from '@renderer/tools/genDatetime'
+import Setting from '../Setting'
 
 const theme = () => {
 	return {
@@ -24,6 +26,7 @@ const theme = () => {
 
 const Content = () => {
 	const { chatList, selectedChatId } = useSelector((state) => state.chat)
+	const { isShowSystemSetting } = useSelector((state) => state.system)
 	const [messages, setMessages] = useState([])
 	const dispatch = useDispatch()
 	const [messageApi, contextHolder] = message.useMessage()
@@ -87,6 +90,15 @@ const Content = () => {
 		messageApi.success('清空成功')
 	}
 
+	const showSystemSetting = () => {
+		dispatch(setIsShowSystemSetting(!isShowSystemSetting))
+	}
+
+	const contentValue = () => {
+		if (isShowSystemSetting) return <Setting />
+		else return <ChatBox messages={messages} onSubmit={onSubmit} />
+	}
+
 	return (
 		<ConfigProvider theme={theme()}>
 			{contextHolder}
@@ -98,11 +110,13 @@ const Content = () => {
 						createNewChat={createNewChat}
 						deleteChat={handleDeleteChat}
 						clearChatList={clearChatList}
+						showSystemSetting={showSystemSetting}
 					/>
 				</div>
 				<div className={styles['content-chat']}>
 					<Header />
-					<ChatBox messages={messages} onSubmit={onSubmit} />
+					{isShowSystemSetting}
+					{contentValue()}
 				</div>
 			</div>
 		</ConfigProvider>

@@ -1,0 +1,9 @@
+.header {
+	&-right {
+        float: right;
+        width: 120px;
+		display: flex;
+        justify-content: space-between;
+		line-height: var(--lineheight-1st);
+	}
+}

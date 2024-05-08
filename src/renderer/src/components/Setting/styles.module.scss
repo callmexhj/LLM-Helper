@@ -1,0 +1,23 @@
+.setting {
+    display: flex;
+    background-color: var(--background-light);
+    height: 100%;
+    flex-direction: column;
+}
+
+/* 强制始终显示滚动条 */
+.setting::-webkit-scrollbar {
+	display: block !important;
+	width: 5px; /* 定义滚动条宽度 */
+	margin-left: 10px;
+}
+
+.setting::-webkit-scrollbar-thumb {
+	background-color: #d9d9d9; /* 可以更改为你想要的手柄颜色 */
+	border-radius: 5px; /* 可以更改为你想要的圆角大小 */
+	cursor: pointer;
+}
+
+.setting::-webkit-scrollbar-track {
+	background-color: var(--background-light); /* 可以更改为你想要的背景颜色 */
+}

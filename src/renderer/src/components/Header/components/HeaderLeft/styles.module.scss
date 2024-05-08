@@ -1,0 +1,18 @@
+.header {
+	&-left {
+		display: flex;
+		flex-direction: column;
+		float: left;
+		-webkit-app-region: none;
+		&-maintitle {
+			font-size: var(--fontsize-1st);
+			line-height: var(--lineheight-1st);
+			color: var(--fontcolor-1st-dark);
+		}
+		&-subtitle {
+			font-size: var(--fontsize-2nd);
+			line-height: var(--lineheight-2nd);
+			color: var(--fontcolor-2nd-dark);
+		}
+	}
+}
