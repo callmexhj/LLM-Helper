@@ -2,7 +2,7 @@ import styles from './styles.module.scss'
 import Ico from '@renderer/assets/chatIco.png'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Button } from 'antd'
+import { Button, Modal } from 'antd'
 import {
 	PlusOutlined,
 	CloseOutlined,
@@ -91,7 +91,19 @@ TopMenuButtonGroup.propTypes = {
 	createNewChat: PropTypes.func
 }
 
-const BottomMenuButtonGroup = () => {
+const BottomMenuButtonGroup = ({ clearChatList }) => {
+	const handleClearChatList = () => {
+		Modal.confirm({
+			title: '清空确认',
+			content: '该操作将清空全部历史聊天记录，请确认。',
+			centered: true,
+			onOk: () => {
+				clearChatList()
+			},
+			okText: '确认',
+			cancelText: '取消'
+		})
+	}
 	return (
 		<div className={styles['menu-button-group-bottom']}>
 			<Button
@@ -99,6 +111,7 @@ const BottomMenuButtonGroup = () => {
 				shape="circle"
 				danger
 				icon={<ClearOutlined />}
+				onClick={handleClearChatList}
 			/>
 			<Button
 				className={styles['menu-button-group-bottom-item']}
@@ -113,17 +126,17 @@ const BottomMenuButtonGroup = () => {
 		</div>
 	)
 }
-// BottomMenuButtonGroup.propTypes = {
-// 	createNewChat: PropTypes.func
-// }
+BottomMenuButtonGroup.propTypes = {
+	clearChatList: PropTypes.func
+}
 
-const Menu = ({ menuList, changeChat, createNewChat, deleteChat }) => {
+const Menu = ({ menuList, changeChat, createNewChat, deleteChat, clearChatList }) => {
 	return (
 		<div className={styles.menu}>
 			<MenuTitle />
 			<TopMenuButtonGroup createNewChat={createNewChat} />
 			<MenuList list={[...menuList]} changeChat={changeChat} deleteChat={deleteChat} />
-			<BottomMenuButtonGroup />
+			<BottomMenuButtonGroup clearChatList={clearChatList} />
 		</div>
 	)
 }
@@ -132,7 +145,8 @@ Menu.propTypes = {
 	menuList: PropTypes.array,
 	changeChat: PropTypes.func,
 	createNewChat: PropTypes.func,
-	deleteChat: PropTypes.func
+	deleteChat: PropTypes.func,
+	clearChatList: PropTypes.func
 }
 
 export default Menu

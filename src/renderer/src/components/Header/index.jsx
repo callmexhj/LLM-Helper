@@ -17,8 +17,10 @@ const HeaderLeft = () => {
 	}, [selectedChatId])
 	return (
 		<div className={styles['header-left']}>
-			<span className={styles['header-left-maintitle']}>{mainTitle}</span>
-			<span className={styles['header-left-subtitle']}>{subTitle}</span>
+			<span className={styles['header-left-maintitle']}>{mainTitle || '请新建对话'}</span>
+			<span className={styles['header-left-subtitle']}>
+				{subTitle || '请点击新建对话按钮以开始聊天'}
+			</span>
 		</div>
 	)
 }

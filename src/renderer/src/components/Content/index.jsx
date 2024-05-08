@@ -10,7 +10,7 @@ import {
 	updateChatMessage,
 	deleteChat
 } from '@renderer/store/slice/chatSlice'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, message } from 'antd'
 import { createChatItem } from '@renderer/tools/genChatItem'
 import genDatetime from '@renderer/tools/genDatetime'
 
@@ -26,6 +26,7 @@ const Content = () => {
 	const { chatList, selectedChatId } = useSelector((state) => state.chat)
 	const [messages, setMessages] = useState([])
 	const dispatch = useDispatch()
+	const [messageApi, contextHolder] = message.useMessage()
 
 	// 根据选取的chatId，更新messages
 	useEffect(() => {
@@ -81,8 +82,14 @@ const Content = () => {
 		})
 	}
 
+	const clearChatList = () => {
+		dispatch(setChatList([]))
+		messageApi.success('清空成功')
+	}
+
 	return (
 		<ConfigProvider theme={theme()}>
+			{contextHolder}
 			<div className={styles.content}>
 				<div className={styles.menu}>
 					<Menu
@@ -90,6 +97,7 @@ const Content = () => {
 						changeChat={changeChat}
 						createNewChat={createNewChat}
 						deleteChat={handleDeleteChat}
+						clearChatList={clearChatList}
 					/>
 				</div>
 				<div className={styles['content-chat']}>
