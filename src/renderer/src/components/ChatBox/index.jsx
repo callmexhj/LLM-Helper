@@ -3,7 +3,7 @@ import MessageItem from './components/MessageItem'
 import InputArea from './components/InputArea'
 import PropTypes from 'prop-types'
 
-const ChatBox = ({ messages }) => {
+const ChatBox = ({ messages, onSubmit }) => {
 	const Messages = () => {
 		return (
 			messages &&
@@ -16,13 +16,16 @@ const ChatBox = ({ messages }) => {
 	return (
 		<div className={styles.chatbox}>
 			<div className={styles['chatbox-messages']}>{Messages()}</div>
-			<InputArea />
+			<div className={styles['chatbox-input']}>
+				<InputArea onSubmit={onSubmit} />
+			</div>
 		</div>
 	)
 }
 
 ChatBox.propTypes = {
-	messages: PropTypes.array
+	messages: PropTypes.array,
+	onSubmit: PropTypes.func
 }
 
 export default ChatBox

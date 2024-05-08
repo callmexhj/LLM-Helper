@@ -1,7 +1,8 @@
 .input-area {
 	width: 100%;
-	height: 220px;
+	height: 100%;
 	border-top: 1px solid var(--border-light);
+	// padding: 0 0 20px 0;
 	&-button-group {
 		width: 100%;
 		padding: 10px 20px;
@@ -25,7 +26,8 @@
 		// border: 1px solid var(--border-light);
 		// background-color: white;
 		&-content {
-            padding: 2px;
+            // padding: 2px;
+			overflow: hidden;
 			border-radius: 10px;
 			background-color: white;
 			box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.05);
@@ -40,16 +42,16 @@
 		&-button {
 			display: flex;
 			align-items: flex-end;
-			margin: 10px;
+			// margin: 10px;
 			&-ico {
 				background-color: #e6f4ff;
-				height: 30px;
-				width: 30px;
+				height: 100%;
+				width: 50px;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				border-radius: 10px;
-				border: 1px solid var(--border-light);
+				// border-radius: 10px;
+				// border: 1px solid var(--border-light);
                 cursor: pointer;
 			}
 		}

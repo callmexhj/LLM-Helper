@@ -9,33 +9,8 @@ export const createChatItem = () => {
 		messages: [
 			{
 				role: 'assistant',
-				content: '你好',
-				date: '2024-05-07 21:09:21'
-			},
-			{
-				role: 'user',
-				content: '你是谁啊',
-				date: '2024-05-07 21:09:21'
-			},
-			{
-				role: 'assistant',
-				content: '你好',
-				date: '2024-05-07 21:09:21'
-			},
-			{
-				role: 'user',
-				content: '你是谁啊',
-				date: '2024-05-07 21:09:21'
-			},
-			{
-				role: 'assistant',
-				content: '你好',
-				date: '2024-05-07 21:09:21'
-			},
-			{
-				role: 'user',
-				content: '你是谁啊',
-				date: '2024-05-07 21:09:21'
+				content: '你好，我是你的助理，请问有什么可以帮您的？',
+				date: genDatetime()
 			}
 		],
 		date: genDatetime()
