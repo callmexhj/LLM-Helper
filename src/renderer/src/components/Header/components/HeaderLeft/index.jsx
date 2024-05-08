@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import styles from './styles.module.scss'
+import leftPng from './left.png'
+import PropTypes from 'prop-types'
 
-const HeaderLeft = () => {
+const HeaderLeft = ({ backToChatBox }) => {
 	const { selectedChatId, chatList } = useSelector((state) => state.chat)
 	const { isShowSystemSetting } = useSelector((state) => state.system)
 	const [mainTitle, setMainTitle] = useState('')
@@ -22,16 +24,35 @@ const HeaderLeft = () => {
 	}
 
 	const subTitleDisplayValue = () => {
-		if (isShowSystemSetting) return '您可在此设置系统相关配置'
+		if (isShowSystemSetting) return ''
 		else return subTitle || '请点击新建对话按钮以开始聊天'
+	}
+
+	const BackButton = () => {
+		if (isShowSystemSetting) {
+			return (
+				<div className={styles['header-left-back']}>
+					<img src={leftPng} alt="返回" onClick={backToChatBox} />
+				</div>
+			)
+		} else {
+			return null
+		}
 	}
 
 	return (
 		<div className={styles['header-left']}>
-			<span className={styles['header-left-maintitle']}>{mainTitleDisplayValue()}</span>
-			<span className={styles['header-left-subtitle']}>{subTitleDisplayValue()}</span>
+			{BackButton()}
+			<div className={styles['header-left-right']}>
+				<span className={styles['header-left-maintitle']}>{mainTitleDisplayValue()}</span>
+				<span className={styles['header-left-subtitle']}>{subTitleDisplayValue()}</span>
+			</div>
 		</div>
 	)
+}
+
+HeaderLeft.propTypes = {
+	backToChatBox: PropTypes.func
 }
 
 export default HeaderLeft

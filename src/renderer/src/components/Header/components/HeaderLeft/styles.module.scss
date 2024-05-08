@@ -1,13 +1,27 @@
 .header {
 	&-left {
 		display: flex;
-		flex-direction: column;
+		align-items: center;
 		float: left;
 		-webkit-app-region: none;
+		&-right {
+			display: flex;
+			flex-direction: column;
+		}
 		&-maintitle {
 			font-size: var(--fontsize-1st);
 			line-height: var(--lineheight-1st);
 			color: var(--fontcolor-1st-dark);
+		}
+		&-back {
+			display: flex;
+			align-items: center;
+			height: var(--lineheight-1st);
+			margin-right: 8px;
+			img {
+				cursor: pointer;
+				height: 14px;
+			}
 		}
 		&-subtitle {
 			font-size: var(--fontsize-2nd);

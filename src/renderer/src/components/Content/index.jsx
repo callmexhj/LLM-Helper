@@ -52,6 +52,7 @@ const Content = () => {
 	}, [chatList.length])
 
 	const changeChat = (chatId) => {
+		dispatch(setIsShowSystemSetting(false))
 		dispatch(setSelectedChatId(chatId))
 	}
 
@@ -99,6 +100,10 @@ const Content = () => {
 		else return <ChatBox messages={messages} onSubmit={onSubmit} />
 	}
 
+	const backToChatBox = () => {
+		dispatch(setIsShowSystemSetting(false))
+	}
+
 	return (
 		<ConfigProvider theme={theme()}>
 			{contextHolder}
@@ -114,7 +119,7 @@ const Content = () => {
 					/>
 				</div>
 				<div className={styles['content-chat']}>
-					<Header />
+					<Header backToChatBox={backToChatBox} />
 					{isShowSystemSetting}
 					{contentValue()}
 				</div>
