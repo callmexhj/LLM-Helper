@@ -1,3 +1,5 @@
+// 由于支持的svg有限，故本组件待废弃
+
 import PropTypes from 'prop-types'
 import styles from './styles.module.scss'
 
@@ -19,7 +21,6 @@ const icoTypes = [
 		value: 'M298.666667 631.466667H226.133333v-81.066667h217.6v204.8h-85.333333v-68.266667l-128 128L170.666667 759.466667l128-128z m422.4 0l128 128-59.733334 59.733333-128-128v68.266667h-85.333333V554.666667h217.6v81.066666h-72.533333zM298.666667 341.333333L187.733333 230.4 243.2 170.666667l115.2 115.2V217.6h85.333333v204.8H226.133333V341.333333H298.666667z m430.933333 0h64v81.066667h-217.6V217.6h85.333333v72.533333L780.8 170.666667l59.733333 59.733333L729.6 341.333333z'
 	}
 ]
-
 const Ico = ({ size, icoType, color, isPointer, onClick }) => {
 	const { value } = icoTypes.find((ico) => ico.name === icoType)
 	const className = isPointer ? styles['ico-pointer'] : ''

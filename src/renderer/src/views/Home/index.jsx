@@ -12,6 +12,7 @@ const Home = () => {
 	const { chatList } = useSelector((state) => state.chat)
 	useEffect(() => {
 		if (!chatList.length) {
+			console.log('chatList is empty')
 			dispatch(setChatList([createChatItem()]))
 		}
 		// else if (chatList.length && chatList[0].messages.length === 0) {

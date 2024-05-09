@@ -1,29 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const initialState = {
+	selectedChatId: '',
+	chatList: []
+}
+
 export const chatSlice = createSlice({
 	name: 'chat',
-	initialState: {
-		selectedChatId: '',
-		chatList: []
-	},
+	initialState,
 	reducers: {
 		setSelectedChatId: (state, action) => {
 			state.selectedChatId = action.payload
 		},
 		setChatList: (state, action) => {
-			state.chatList = action.payload
-			state.selectedChatId = action.payload[0].id
+			state.chatList = [...action.payload]
 		},
-		updateChatDate: (state, action) => {
-			const { chatId, newDate } = action.payload
-			const chatIndex = state.chatList.findIndex((item) => item.chatId === chatId)
+		deleteChat: (state, action) => {
+			const chatIndex = state.chatList.findIndex((item) => item.id === action.payload)
 			if (chatIndex !== -1) {
-				state.chatList[chatIndex].date = newDate
-				state.selectedChatId = chatId
+				state.chatList.splice(chatIndex, 1)
+			}
+		},
+		updateChatMessage: (state, action) => {
+			const { chatId, newMessage } = action.payload
+			const chatIndex = state.chatList.findIndex((item) => item.id === chatId)
+			if (chatIndex !== -1) {
+				state.chatList[chatIndex].messages = [...newMessage]
 			}
 		}
 	}
 })
 
-export const { setSelectedChatId, setChatList, updateChatDate } = chatSlice.actions
+export const { setSelectedChatId, setChatList, updateChatMessage, deleteChat } = chatSlice.actions
 export default chatSlice.reducer

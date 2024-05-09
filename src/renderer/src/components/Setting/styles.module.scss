@@ -1,0 +1,69 @@
+.setting {
+	padding: 20px;
+	display: flex;
+	background-color: var(--background-light);
+	height: 100%;
+	overflow: auto;
+	flex-direction: column;
+	animation: slideRightToLeft 0.3s ease-in-out;
+	&-card {
+		margin-bottom: 20px;
+		&-form {
+			display: flex;
+			flex-direction: column;
+			&-item {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-bottom: 10px;
+				margin-bottom: 10px;
+				border-bottom: 1px solid var(--background-lighter);
+				&-label {
+					display: flex;
+					flex-direction: column;
+					&-maintitle {
+						font-weight: bold;
+						font-size: var(--fontsize-2nd);
+						line-height: var(--lineheight-2nd);
+					}
+					&-subtitle {
+						font-size: var(--fontsize-3rd);
+						line-height: var(--lineheight-3rd);
+					}
+				}
+			}
+			&-item:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+	&-card:last-child {
+		margin-bottom: 0;
+	}
+}
+
+@keyframes slideRightToLeft {
+	0% {
+		transform: translateX(100%);
+	}
+	100% {
+		transform: translateX(0%);
+	}
+}
+
+/* 强制始终显示滚动条 */
+.setting::-webkit-scrollbar {
+	display: block !important;
+	width: 5px; /* 定义滚动条宽度 */
+	margin-left: 10px;
+}
+
+.setting::-webkit-scrollbar-thumb {
+	background-color: #d9d9d9; /* 可以更改为你想要的手柄颜色 */
+	border-radius: 5px; /* 可以更改为你想要的圆角大小 */
+	cursor: pointer;
+}
+
+.setting::-webkit-scrollbar-track {
+	background-color: var(--background-light); /* 可以更改为你想要的背景颜色 */
+}

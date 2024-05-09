@@ -1,0 +1,36 @@
+.message-item {
+	display: flex;
+    flex-direction: column;
+    // width: fit-content;
+    margin-bottom: 5px;
+    &-user {
+        align-items: flex-end;
+        .message-item-message {
+            background-color: #bae0ff;
+        }
+    }
+    &-assistant {
+        .message-item-message {
+            background-color: #d9d9d9;
+        }
+    }
+    &-message {
+        margin: 2px 0;
+        width: max-content;
+        max-width: 80%;
+        padding: 10px;
+        border-radius: 10px;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        color: var(--fontcolor-2nd-dark);
+    }
+    &-subinfo {
+        font-size: var(--fontsize-3rd);
+        line-height: var(--lineheight-3rd);
+        color: var(--fontcolor-3rd-dark);
+    }
+    &-avatar {
+        width: fit-content;
+        cursor: pointer;
+    }
+}

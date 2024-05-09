@@ -1,9 +1,11 @@
 .content {
 	display: flex;
-    height: 100vh;
+    height: 99vh;
 	&-chat {
 		display: flex;
 		flex-direction: column;
 		flex: 1;
+		min-width: 300px;
+		background-color: var(--background-light);
 	}
 }

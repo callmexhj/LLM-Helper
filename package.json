@@ -23,6 +23,7 @@
     "@reduxjs/toolkit": "^2.2.3",
     "antd": "^5.17.0",
     "electron-updater": "^6.1.7",
+    "openai": "^4.42.0",
     "react-redux": "^9.1.2"
   },
   "devDependencies": {

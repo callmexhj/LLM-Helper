@@ -1,0 +1,19 @@
+.menu {
+	&-button-group {
+		display: flex;
+		margin: 0 0 20px 0;
+		padding: 0 20px;
+		&-item {
+			width: 100%;
+		}
+	}
+	&-button-group-bottom {
+		display: flex;
+		padding: 0 20px;
+		margin: 20px 0 0;
+		&-item {
+			width: 100%;
+			margin-right: 15px;
+		}
+	}
+}
