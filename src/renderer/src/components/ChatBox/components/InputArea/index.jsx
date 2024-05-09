@@ -3,10 +3,12 @@ import styles from './styles.module.scss'
 import { ClearIco, RobotIco, ReChatIco, SendIco } from './Icos'
 import { Input, message } from 'antd'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 
 const { TextArea } = Input
 
 const InputArea = ({ onSubmit }) => {
+	const { isLoading } = useSelector((state) => state.system)
 	const [value, setValue] = useState('')
 	const [messageApi, contextHolder] = message.useMessage()
 
@@ -50,6 +52,7 @@ const InputArea = ({ onSubmit }) => {
 							autoSize={{ minRows: 3, maxRows: 3 }}
 							style={{ width: '100%', border: 'none' }}
 							onKeyPress={handleKeyPress}
+							disabled={isLoading}
 						/>
 					</div>
 					<div className={styles['input-area-inputbox-button']}>

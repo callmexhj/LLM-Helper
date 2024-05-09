@@ -1,7 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-	isShowSystemSetting: false
+	isShowSystemSetting: false,
+	modelConfig: {
+		activateModel: 'OpenAI',
+		OpenAI: {
+			apiKey: ''
+		}
+	},
+	isLoading: false
 }
 
 export const systemSlice = createSlice({
@@ -10,9 +17,15 @@ export const systemSlice = createSlice({
 	reducers: {
 		setIsShowSystemSetting: (state, action) => {
 			state.isShowSystemSetting = action.payload
+		},
+		updateOpenAIConfig: (state, action) => {
+			state.modelConfig.OpenAI.apiKey = action.payload
+		},
+		setIsLoading: (state, action) => {
+			state.isLoading = action.payload
 		}
 	}
 })
 
-export const { setIsShowSystemSetting } = systemSlice.actions
+export const { setIsShowSystemSetting, updateOpenAIConfig, setIsLoading } = systemSlice.actions
 export default systemSlice.reducer

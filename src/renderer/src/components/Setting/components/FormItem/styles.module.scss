@@ -1,0 +1,37 @@
+.setting {
+	&-card {
+		&-form {
+			margin-bottom: 15px;
+			&-item {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-bottom: 10px;
+				border-bottom: 1px solid var(--background-lighter);
+				&-label {
+					display: flex;
+					flex-direction: column;
+					&-maintitle {
+						// font-weight: bold;
+						font-size: var(--fontsize-2nd);
+						line-height: var(--lineheight-2nd);
+					}
+					&-subtitle {
+						color: var(--fontcolor-2nd-dark);
+						font-size: var(--fontsize-3rd);
+						line-height: var(--lineheight-3rd);
+					}
+				}
+				&-input {
+					width: 200px;
+				}
+			}
+		}
+		&-form:last-child {
+			margin-bottom: 0;
+		}
+	}
+	&-card:last-child {
+		margin-bottom: 0;
+	}
+}
