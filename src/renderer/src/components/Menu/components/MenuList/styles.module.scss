@@ -5,6 +5,8 @@
 	padding: 0 10px 0 20px;
 	margin-right: 10px;
 	.menu-item {
+		transition: border-color 0.5s ease-in-out;
+		animation: optTo1 0.7s ease-in-out;
 		cursor: pointer;
 		box-sizing: border-box;
 		padding: 10px;
@@ -61,6 +63,15 @@
 	.menu-item:last-child {
 		margin-bottom: 0;
 	}
+}
+
+@keyframes optTo1 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 /* 强制始终显示滚动条 */
 .menu-lists::-webkit-scrollbar {

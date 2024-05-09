@@ -4,15 +4,28 @@
     min-height: 400px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     &-messages {
         padding: 20px;
         overflow: auto;
         flex: 1;
+        animation: slideRightToLeft 0.3s ease-in-out;
     }
     &-input {
         height: 140px;
+        animation: slideRightToLeft 0.3s ease-in-out;
     }
 }
+
+@keyframes slideRightToLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
 /* 强制始终显示滚动条 */
 .chatbox-messages::-webkit-scrollbar {
 	display: block !important;
