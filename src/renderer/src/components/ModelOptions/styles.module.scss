@@ -1,0 +1,20 @@
+.input-area {
+	&-button-group {
+		&-item {
+			&-selector {
+				&-content {
+					&-cust {
+						&-group-title {
+							display: flex;
+							align-items: center;
+							&-span {
+								display: flex;
+								margin-left: 10px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

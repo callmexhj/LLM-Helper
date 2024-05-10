@@ -8,7 +8,8 @@ import {
 	setSelectedChatId,
 	setChatList,
 	updateChatMessage,
-	deleteChat
+	deleteChat,
+	updateChatModelVersion
 } from '@renderer/store/slice/chatSlice'
 import {
 	setIsShowSystemSetting,
@@ -33,9 +34,9 @@ const Content = () => {
 	const { chatList, selectedChatId } = useSelector((state) => state.chat)
 	const { isShowSystemSetting, modelConfig, isLoading } = useSelector((state) => state.system)
 	const [messages, setMessages] = useState([])
-	// const [chatBoxList, setChatBoxList] = useState([])
 	const dispatch = useDispatch()
 	const [messageApi, contextHolder] = message.useMessage()
+	const [modelVersion, setModelVersion] = useState(null)
 	let messageContentCache = ''
 
 	useEffect(() => {
@@ -52,10 +53,12 @@ const Content = () => {
 	useEffect(() => {
 		console.log(selectedChatId, chatList)
 		if (chatList.length > 0) {
-			const messagesCache = chatList.find((item) => {
+			const chatItem = chatList.find((item) => {
 				return item.id === selectedChatId
-			})?.messages
+			})
+			const messagesCache = chatItem.messages
 			setMessages(messagesCache)
+			setModelVersion(chatItem.modelVersion)
 		}
 	}, [selectedChatId])
 
@@ -90,16 +93,6 @@ const Content = () => {
 		dispatch(setSelectedChatId(chatId))
 	}
 
-	// const createChatBoxNode = (chatId) => {
-	// 	const chatBoxListCache = [...chatBoxList]
-	// 	// const chatMessageArr = chatList.find((item) => item.id === chatId)?.messages
-	// 	chatBoxListCache.unshift({
-	// 		id: chatId,
-	// 		node: <ChatBox messages={messages} onSubmit={onSubmit} onReChat={handleReChat} />
-	// 	})
-	// 	setChatBoxList(chatBoxListCache)
-	// }
-
 	const createNewChat = () => {
 		const chatListCache = [...chatList]
 		const chatItem = createChatItem()
@@ -117,8 +110,13 @@ const Content = () => {
 		const messageCache = JSON.parse(JSON.stringify(messages))
 		if (response.isStop) {
 			messageContentCache = ''
+			// 错误展示
+			if (response.error) {
+				messageCache[messageCache.length - 1].content = response.value
+				setMessages(messageCache)
+				messageApi.error(response.value)
+			}
 			dispatch(setIsLoading(false))
-			response.error && messageApi.error(response.value)
 			return
 		}
 		messageContentCache += response.value
@@ -187,9 +185,23 @@ const Content = () => {
 		)
 	}
 
+	const handleModelChange = (value) => {
+		setModelVersion(value)
+		dispatch(updateChatModelVersion({ chatId: selectedChatId, modelVersion: value }))
+	}
+
 	const contentValue = () => {
 		if (isShowSystemSetting) return <Setting onOpenAIKeyChange={handleOpenAIKeyChange} />
-		else return <ChatBox messages={messages} onSubmit={onSubmit} onReChat={handleReChat} />
+		else
+			return (
+				<ChatBox
+					messages={messages}
+					onSubmit={onSubmit}
+					onReChat={handleReChat}
+					modelVersion={modelVersion}
+					onModelChange={handleModelChange}
+				/>
+			)
 	}
 
 	const backToChatBox = () => {

@@ -1,10 +1,10 @@
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import styles from './styles.module.scss'
 import MessageItem from './components/MessageItem'
 import InputArea from './components/InputArea'
 import PropTypes from 'prop-types'
 
-const ChatBox = ({ messages, onSubmit, onReChat }) => {
+const ChatBox = ({ messages, onSubmit, onReChat, modelVersion, onModelChange }) => {
 	const chatBoxMessagesRef = useRef(null)
 
 	const handleSubmit = async (value) => {
@@ -31,7 +31,12 @@ const ChatBox = ({ messages, onSubmit, onReChat }) => {
 				{Messages()}
 			</div>
 			<div className={styles['chatbox-input']}>
-				<InputArea onSubmit={handleSubmit} onReChat={onReChat} />
+				<InputArea
+					onSubmit={handleSubmit}
+					onReChat={onReChat}
+					modelVersion={modelVersion}
+					onModelChange={onModelChange}
+				/>
 			</div>
 		</div>
 	)
@@ -40,7 +45,9 @@ const ChatBox = ({ messages, onSubmit, onReChat }) => {
 ChatBox.propTypes = {
 	messages: PropTypes.array,
 	onSubmit: PropTypes.func,
-	onReChat: PropTypes.func
+	onReChat: PropTypes.func,
+	modelVersion: PropTypes.string,
+	onModelChange: PropTypes.func
 }
 
 export default ChatBox

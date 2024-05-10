@@ -4,16 +4,22 @@ import { ClearIco, RobotIco, ReChatIco, SendIco } from './Icos'
 import { Input, message, Modal, Tooltip, Select } from 'antd'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
+import { ModelOptions } from '@renderer/components/ModelOptions'
 
 const { TextArea } = Input
 
-const InputArea = ({ onSubmit, onReChat }) => {
+const InputArea = ({ onSubmit, onReChat, modelVersion, onModelChange }) => {
 	const { isLoading } = useSelector((state) => state.system)
 	const [isShowModelSelector, setIsShowModelSelector] = useState(false)
 	const [value, setValue] = useState('')
 	const [messageApi, contextHolder] = message.useMessage()
-	const [selectValue, setSelectValue] = useState(null)
+	// const [selectValue, setSelectValue] = useState(null)
 	const timer = useRef(null)
+
+	// useEffect(() => {
+	// 	console.log(modelVersion)
+	// 	setSelectValue(modelVersion)
+	// }, [modelVersion])
 
 	const handleOnSubmit = async () => {
 		if (value.length === 0) {
@@ -69,7 +75,7 @@ const InputArea = ({ onSubmit, onReChat }) => {
 	}
 
 	const handleSelectChanged = (value) => {
-		setSelectValue(value)
+		onModelChange(value)
 		clearTimeout(timer.current)
 		timer.current = setTimeout(closseModelSelector, 2000)
 	}
@@ -87,17 +93,12 @@ const InputArea = ({ onSubmit, onReChat }) => {
 					className={styles['input-area-button-group-item-selector-content-cust']}
 					size="small"
 					style={{ width: 100 }}
-					value={selectValue}
+					value={modelVersion}
 					onDropdownVisibleChange={handleSelectEnter}
 					onChange={handleSelectChanged}
 					// 清除父元素点击事件传递
 					onClick={(e) => e.stopPropagation()}
-					options={[
-						{ value: 'jack', label: 'Jack' },
-						{ value: 'lucy', label: 'Lucy' },
-						{ value: 'Yiminghe', label: 'yiminghe' },
-						{ value: 'disabled', label: 'Disabled', disabled: true }
-					]}
+					options={ModelOptions}
 				/>
 			</div>
 		)
@@ -159,6 +160,8 @@ const InputArea = ({ onSubmit, onReChat }) => {
 
 InputArea.propTypes = {
 	onSubmit: PropTypes.func,
-	onReChat: PropTypes.func
+	onReChat: PropTypes.func,
+	modelVersion: PropTypes.string,
+	onModelChange: PropTypes.func
 }
 export default InputArea
