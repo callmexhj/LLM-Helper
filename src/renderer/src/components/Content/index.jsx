@@ -144,9 +144,27 @@ const Content = () => {
 		dispatch(updateOpenAIConfig(target.value))
 	}
 
+	// 重置当前聊天记录
+	const handleReChat = () => {
+		const initMessages = [
+			{
+				role: 'assistant',
+				content: '你好，我是你的助理，请问有什么可以帮您的？',
+				date: genDatetime()
+			}
+		]
+		setMessages([...initMessages])
+		dispatch(
+			updateChatMessage({
+				chatId: selectedChatId,
+				newMessage: [...initMessages]
+			})
+		)
+	}
+
 	const contentValue = () => {
 		if (isShowSystemSetting) return <Setting onOpenAIKeyChange={handleOpenAIKeyChange} />
-		else return <ChatBox messages={messages} onSubmit={onSubmit} />
+		else return <ChatBox messages={messages} onSubmit={onSubmit} onReChat={handleReChat} />
 	}
 
 	const backToChatBox = () => {

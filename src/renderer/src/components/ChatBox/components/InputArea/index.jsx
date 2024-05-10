@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import styles from './styles.module.scss'
 import { ClearIco, RobotIco, ReChatIco, SendIco } from './Icos'
-import { Input, message } from 'antd'
+import { Input, message, Modal, Tooltip } from 'antd'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
 const { TextArea } = Input
 
-const InputArea = ({ onSubmit }) => {
+const InputArea = ({ onSubmit, onReChat }) => {
 	const { isLoading } = useSelector((state) => state.system)
 	const [value, setValue] = useState('')
 	const [messageApi, contextHolder] = message.useMessage()
@@ -28,6 +28,19 @@ const InputArea = ({ onSubmit }) => {
 		}
 	}
 
+	const handleReChat = () => {
+		Modal.confirm({
+			title: '清空确认',
+			content: '该操作将清空当前对话的聊天记录，请确认。',
+			centered: true,
+			onOk: () => {
+				onReChat()
+			},
+			okText: '确认',
+			cancelText: '取消'
+		})
+	}
+
 	return (
 		<div className={styles['input-area']}>
 			{contextHolder}
@@ -35,9 +48,11 @@ const InputArea = ({ onSubmit }) => {
 				<div className={styles['input-area-button-group-item']}>
 					<ClearIco />
 				</div>
-				<div className={styles['input-area-button-group-item']}>
-					<ReChatIco />
-				</div>
+				<Tooltip title="清空聊天">
+					<div className={styles['input-area-button-group-item']} onClick={handleReChat}>
+						<ReChatIco />
+					</div>
+				</Tooltip>
 				<div className={styles['input-area-button-group-item']}>
 					<RobotIco />
 				</div>
@@ -70,6 +85,7 @@ const InputArea = ({ onSubmit }) => {
 }
 
 InputArea.propTypes = {
-	onSubmit: PropTypes.func
+	onSubmit: PropTypes.func,
+	onReChat: PropTypes.func
 }
 export default InputArea

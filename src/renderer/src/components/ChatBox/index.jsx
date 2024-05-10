@@ -4,7 +4,7 @@ import MessageItem from './components/MessageItem'
 import InputArea from './components/InputArea'
 import PropTypes from 'prop-types'
 
-const ChatBox = ({ messages, onSubmit }) => {
+const ChatBox = ({ messages, onSubmit, onReChat }) => {
 	const chatBoxMessagesRef = useRef(null)
 
 	const handleSubmit = async (value) => {
@@ -31,7 +31,7 @@ const ChatBox = ({ messages, onSubmit }) => {
 				{Messages()}
 			</div>
 			<div className={styles['chatbox-input']}>
-				<InputArea onSubmit={handleSubmit} />
+				<InputArea onSubmit={handleSubmit} onReChat={onReChat} />
 			</div>
 		</div>
 	)
@@ -39,7 +39,8 @@ const ChatBox = ({ messages, onSubmit }) => {
 
 ChatBox.propTypes = {
 	messages: PropTypes.array,
-	onSubmit: PropTypes.func
+	onSubmit: PropTypes.func,
+	onReChat: PropTypes.func
 }
 
 export default ChatBox
