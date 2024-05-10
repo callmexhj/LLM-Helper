@@ -28,6 +28,10 @@ const InputArea = ({ onSubmit, onReChat }) => {
 		}
 	}
 
+	const resetInputTextArea = () => {
+		setValue('')
+	}
+
 	const handleReChat = () => {
 		Modal.confirm({
 			title: '清空确认',
@@ -45,9 +49,14 @@ const InputArea = ({ onSubmit, onReChat }) => {
 		<div className={styles['input-area']}>
 			{contextHolder}
 			<div className={styles['input-area-button-group']}>
-				<div className={styles['input-area-button-group-item']}>
-					<ClearIco />
-				</div>
+				<Tooltip title="清空输入框">
+					<div
+						className={styles['input-area-button-group-item']}
+						onClick={resetInputTextArea}
+					>
+						<ClearIco />
+					</div>
+				</Tooltip>
 				<Tooltip title="清空聊天">
 					<div className={styles['input-area-button-group-item']} onClick={handleReChat}>
 						<ReChatIco />
