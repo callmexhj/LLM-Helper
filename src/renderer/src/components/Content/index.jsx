@@ -186,8 +186,11 @@ const Content = () => {
 	}
 
 	const handleModelChange = (value) => {
-		setModelVersion(value)
-		dispatch(updateChatModelVersion({ chatId: selectedChatId, modelVersion: value }))
+		return new Promise((resolve) => {
+			setModelVersion(value)
+			dispatch(updateChatModelVersion({ chatId: selectedChatId, modelVersion: value }))
+			resolve()
+		})
 	}
 
 	const contentValue = () => {

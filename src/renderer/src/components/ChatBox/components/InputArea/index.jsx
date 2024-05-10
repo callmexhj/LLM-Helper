@@ -13,13 +13,7 @@ const InputArea = ({ onSubmit, onReChat, modelVersion, onModelChange }) => {
 	const [isShowModelSelector, setIsShowModelSelector] = useState(false)
 	const [value, setValue] = useState('')
 	const [messageApi, contextHolder] = message.useMessage()
-	// const [selectValue, setSelectValue] = useState(null)
 	const timer = useRef(null)
-
-	// useEffect(() => {
-	// 	console.log(modelVersion)
-	// 	setSelectValue(modelVersion)
-	// }, [modelVersion])
 
 	const handleOnSubmit = async () => {
 		if (value.length === 0) {
@@ -74,8 +68,9 @@ const InputArea = ({ onSubmit, onReChat, modelVersion, onModelChange }) => {
 		return classArray.join(' ')
 	}
 
-	const handleSelectChanged = (value) => {
-		onModelChange(value)
+	const handleSelectChanged = async (value) => {
+		await onModelChange(value)
+		messageApi.success('模型修改成功')
 		clearTimeout(timer.current)
 		timer.current = setTimeout(closseModelSelector, 2000)
 	}
