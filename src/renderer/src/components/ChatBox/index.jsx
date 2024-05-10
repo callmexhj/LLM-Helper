@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import styles from './styles.module.scss'
 import MessageItem from './components/MessageItem'
 import InputArea from './components/InputArea'

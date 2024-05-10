@@ -33,12 +33,24 @@ const Content = () => {
 	const { chatList, selectedChatId } = useSelector((state) => state.chat)
 	const { isShowSystemSetting, modelConfig, isLoading } = useSelector((state) => state.system)
 	const [messages, setMessages] = useState([])
+	// const [chatBoxList, setChatBoxList] = useState([])
 	const dispatch = useDispatch()
 	const [messageApi, contextHolder] = message.useMessage()
 	let messageContentCache = ''
 
+	useEffect(() => {
+		if (!chatList.length) {
+			createNewChat()
+		}
+	}, [])
+
+	useEffect(() => {
+		console.log(messages)
+	}, [messages])
+
 	// 根据选取的chatId，更新messages
 	useEffect(() => {
+		console.log(selectedChatId, chatList)
 		if (chatList.length > 0) {
 			const messagesCache = chatList.find((item) => {
 				return item.id === selectedChatId
@@ -78,10 +90,22 @@ const Content = () => {
 		dispatch(setSelectedChatId(chatId))
 	}
 
+	// const createChatBoxNode = (chatId) => {
+	// 	const chatBoxListCache = [...chatBoxList]
+	// 	// const chatMessageArr = chatList.find((item) => item.id === chatId)?.messages
+	// 	chatBoxListCache.unshift({
+	// 		id: chatId,
+	// 		node: <ChatBox messages={messages} onSubmit={onSubmit} onReChat={handleReChat} />
+	// 	})
+	// 	setChatBoxList(chatBoxListCache)
+	// }
+
 	const createNewChat = () => {
 		const chatListCache = [...chatList]
-		chatListCache.unshift(createChatItem())
+		const chatItem = createChatItem()
+		chatListCache.unshift(chatItem)
 		dispatch(setChatList(chatListCache))
+		// createChatBoxNode(chatItem.id)
 	}
 
 	const handleDeleteChat = (chatId) => {
@@ -104,6 +128,7 @@ const Content = () => {
 
 	// 更新message数组，并修改redux中的message数组
 	const onSubmit = (value) => {
+		console.log(value)
 		return new Promise((resolve) => {
 			const messageCache = [...messages]
 			messageCache.push(
@@ -187,7 +212,6 @@ const Content = () => {
 				</div>
 				<div className={styles['content-chat']}>
 					<Header backToChatBox={backToChatBox} />
-					{isShowSystemSetting}
 					{contentValue()}
 				</div>
 			</div>

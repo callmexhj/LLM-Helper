@@ -5,7 +5,7 @@ const initialState = {
 	modelConfig: {
 		activateModel: 'OpenAI',
 		OpenAI: {
-			apiKey: ''
+			apiKey: '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'
 		}
 	},
 	isLoading: false

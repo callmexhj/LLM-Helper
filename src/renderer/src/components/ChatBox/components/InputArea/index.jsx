@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import styles from './styles.module.scss'
 import { ClearIco, RobotIco, ReChatIco, SendIco } from './Icos'
-import { Input, message, Modal, Tooltip } from 'antd'
+import { Input, message, Modal, Tooltip, Select } from 'antd'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
@@ -9,8 +9,11 @@ const { TextArea } = Input
 
 const InputArea = ({ onSubmit, onReChat }) => {
 	const { isLoading } = useSelector((state) => state.system)
+	const [isShowModelSelector, setIsShowModelSelector] = useState(false)
 	const [value, setValue] = useState('')
 	const [messageApi, contextHolder] = message.useMessage()
+	const [selectValue, setSelectValue] = useState(null)
+	const timer = useRef(null)
 
 	const handleOnSubmit = async () => {
 		if (value.length === 0) {
@@ -28,10 +31,12 @@ const InputArea = ({ onSubmit, onReChat }) => {
 		}
 	}
 
+	// 清空对话框
 	const resetInputTextArea = () => {
 		setValue('')
 	}
 
+	// 清空当前对话聊天记录
 	const handleReChat = () => {
 		Modal.confirm({
 			title: '清空确认',
@@ -43,6 +48,63 @@ const InputArea = ({ onSubmit, onReChat }) => {
 			okText: '确认',
 			cancelText: '取消'
 		})
+	}
+
+	const closseModelSelector = () => {
+		setIsShowModelSelector(false)
+		clearTimeout(timer.current)
+	}
+
+	const handleChooseModel = () => {
+		setIsShowModelSelector(true)
+		timer.current = setTimeout(closseModelSelector, 7000)
+	}
+
+	const ModelSelectorClass = () => {
+		const classArray = [styles['input-area-button-group-item']]
+		if (isShowModelSelector) {
+			classArray.push(styles['input-area-button-group-item-selector'])
+		}
+		return classArray.join(' ')
+	}
+
+	const handleSelectChanged = (value) => {
+		setSelectValue(value)
+		clearTimeout(timer.current)
+		timer.current = setTimeout(closseModelSelector, 2000)
+	}
+
+	const handleSelectEnter = (open) => {
+		clearTimeout(timer.current)
+		if (open) return
+		timer.current = setTimeout(closseModelSelector, 3000)
+	}
+
+	const ModelSelector = () => {
+		return (
+			<div className={styles['input-area-button-group-item-selector-content']}>
+				<Select
+					className={styles['input-area-button-group-item-selector-content-cust']}
+					size="small"
+					style={{ width: 100 }}
+					value={selectValue}
+					onDropdownVisibleChange={handleSelectEnter}
+					onChange={handleSelectChanged}
+					// 清除父元素点击事件传递
+					onClick={(e) => e.stopPropagation()}
+					options={[
+						{ value: 'jack', label: 'Jack' },
+						{ value: 'lucy', label: 'Lucy' },
+						{ value: 'Yiminghe', label: 'yiminghe' },
+						{ value: 'disabled', label: 'Disabled', disabled: true }
+					]}
+				/>
+			</div>
+		)
+	}
+
+	const isShowModelSelectorNode = () => {
+		return isShowModelSelector ? <ModelSelector /> : <RobotIco />
 	}
 
 	return (
@@ -62,9 +124,11 @@ const InputArea = ({ onSubmit, onReChat }) => {
 						<ReChatIco />
 					</div>
 				</Tooltip>
-				<div className={styles['input-area-button-group-item']}>
-					<RobotIco />
-				</div>
+				<Tooltip title={!isShowModelSelector && '切换模型'}>
+					<div className={ModelSelectorClass()} onClick={handleChooseModel}>
+						{isShowModelSelectorNode()}
+					</div>
+				</Tooltip>
 			</div>
 			<div className={styles['input-area-inputbox']}>
 				<div className={styles['input-area-inputbox-content']}>
