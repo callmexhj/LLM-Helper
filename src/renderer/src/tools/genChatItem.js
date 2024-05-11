@@ -6,6 +6,7 @@ export const createChatItem = () => {
 		id: genChatId(),
 		title: '新的对话',
 		chatAbstract: '空白对话',
+		modelVersion: 'gpt-3.5',
 		messages: [
 			{
 				role: 'assistant',

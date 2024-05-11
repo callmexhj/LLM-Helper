@@ -3,9 +3,10 @@ import styles from './styles.module.scss'
 import { Card } from 'antd'
 import SystemSettingFrom from './components/SystemSettingForm'
 import OpenAIForm from './components/OpenAiForm'
+import TongyiForm from './components/TongyiForm'
 import PropTypes from 'prop-types'
 
-const Setting = ({ onOpenAIKeyChange }) => {
+const Setting = ({ onOpenAIKeyChange, onTongyiKeyChange }) => {
 	const [activeModelTabKey, setActiveModelTabKey] = useState('OpenAI')
 
 	const tabList = [
@@ -14,23 +15,23 @@ const Setting = ({ onOpenAIKeyChange }) => {
 			tab: 'OpenAI'
 		},
 		{
+			key: 'Qianwen',
+			tab: '通义千问'
+		},
+		{
 			key: 'Spark',
 			tab: '科大讯飞'
 		},
 		{
 			key: 'Wenxin',
 			tab: '文心一言'
-		},
-		{
-			key: 'Qianwen',
-			tab: '通义千问'
 		}
 	]
 	const ModelContentList = {
 		OpenAI: <OpenAIForm onOpenAIKeyChange={onOpenAIKeyChange} />,
+		Qianwen: <TongyiForm onTongyiKeyChange={onTongyiKeyChange} />,
 		Spark: <SystemSettingFrom />,
-		Wenxin: <SystemSettingFrom />,
-		Qianwen: <SystemSettingFrom />
+		Wenxin: <SystemSettingFrom />
 	}
 
 	const onModelTabChange = (key) => {
@@ -58,7 +59,8 @@ const Setting = ({ onOpenAIKeyChange }) => {
 }
 
 Setting.propTypes = {
-	onOpenAIKeyChange: PropTypes.func
+	onOpenAIKeyChange: PropTypes.func,
+	onTongyiKeyChange: PropTypes.func
 }
 
 export default Setting

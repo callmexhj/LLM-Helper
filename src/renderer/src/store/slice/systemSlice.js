@@ -3,8 +3,10 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
 	isShowSystemSetting: false,
 	modelConfig: {
-		activateModel: 'OpenAI',
 		OpenAI: {
+			apiKey: ''
+		},
+		Tongyi: {
 			apiKey: ''
 		}
 	},
@@ -21,11 +23,15 @@ export const systemSlice = createSlice({
 		updateOpenAIConfig: (state, action) => {
 			state.modelConfig.OpenAI.apiKey = action.payload
 		},
+		updateTongyiConfig: (state, action) => {
+			state.modelConfig.Tongyi.apiKey = action.payload
+		},
 		setIsLoading: (state, action) => {
 			state.isLoading = action.payload
 		}
 	}
 })
 
-export const { setIsShowSystemSetting, updateOpenAIConfig, setIsLoading } = systemSlice.actions
+export const { setIsShowSystemSetting, updateOpenAIConfig, setIsLoading, updateTongyiConfig } =
+	systemSlice.actions
 export default systemSlice.reducer

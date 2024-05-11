@@ -8,11 +8,13 @@ import {
 	setSelectedChatId,
 	setChatList,
 	updateChatMessage,
-	deleteChat
+	deleteChat,
+	updateChatModelVersion
 } from '@renderer/store/slice/chatSlice'
 import {
 	setIsShowSystemSetting,
 	updateOpenAIConfig,
+	updateTongyiConfig,
 	setIsLoading
 } from '@renderer/store/slice/systemSlice'
 import { ConfigProvider, message } from 'antd'
@@ -35,15 +37,25 @@ const Content = () => {
 	const [messages, setMessages] = useState([])
 	const dispatch = useDispatch()
 	const [messageApi, contextHolder] = message.useMessage()
+	const [modelVersion, setModelVersion] = useState(null)
 	let messageContentCache = ''
+
+	useEffect(() => {
+		if (!chatList.length) {
+			createNewChat()
+		}
+	}, [])
 
 	// 根据选取的chatId，更新messages
 	useEffect(() => {
+		console.log(selectedChatId, chatList)
 		if (chatList.length > 0) {
-			const messagesCache = chatList.find((item) => {
+			const chatItem = chatList.find((item) => {
 				return item.id === selectedChatId
-			})?.messages
+			})
+			const messagesCache = chatItem.messages
 			setMessages(messagesCache)
+			setModelVersion(chatItem.modelVersion)
 		}
 	}, [selectedChatId])
 
@@ -59,7 +71,7 @@ const Content = () => {
 
 	// 当isLoading变化时，调用chat
 	useEffect(() => {
-		isLoading && chat(messages, modelConfig, handleResponseOnChatBox)
+		isLoading && chat(messages, modelConfig, handleResponseOnChatBox, modelVersion)
 	}, [isLoading])
 
 	// 当结束对话时，更新redux
@@ -80,8 +92,10 @@ const Content = () => {
 
 	const createNewChat = () => {
 		const chatListCache = [...chatList]
-		chatListCache.unshift(createChatItem())
+		const chatItem = createChatItem()
+		chatListCache.unshift(chatItem)
 		dispatch(setChatList(chatListCache))
+		// createChatBoxNode(chatItem.id)
 	}
 
 	const handleDeleteChat = (chatId) => {
@@ -93,8 +107,13 @@ const Content = () => {
 		const messageCache = JSON.parse(JSON.stringify(messages))
 		if (response.isStop) {
 			messageContentCache = ''
+			// 错误展示
+			if (response.error) {
+				messageCache[messageCache.length - 1].content = response.value
+				setMessages(messageCache)
+				messageApi.error(response.value)
+			}
 			dispatch(setIsLoading(false))
-			response.error && messageApi.error(response.value)
 			return
 		}
 		messageContentCache += response.value
@@ -104,6 +123,7 @@ const Content = () => {
 
 	// 更新message数组，并修改redux中的message数组
 	const onSubmit = (value) => {
+		console.log(value)
 		return new Promise((resolve) => {
 			const messageCache = [...messages]
 			messageCache.push(
@@ -144,9 +164,55 @@ const Content = () => {
 		dispatch(updateOpenAIConfig(target.value))
 	}
 
+	const handleTongyiKeyChange = ({ target }) => {
+		dispatch(updateTongyiConfig(target.value))
+	}
+
+	// 重置当前聊天记录
+	const handleReChat = () => {
+		const initMessages = [
+			{
+				role: 'assistant',
+				content: '你好，我是你的助理，请问有什么可以帮您的？',
+				date: genDatetime()
+			}
+		]
+		setMessages([...initMessages])
+		dispatch(setIsLoading(false))
+		dispatch(
+			updateChatMessage({
+				chatId: selectedChatId,
+				newMessage: [...initMessages]
+			})
+		)
+	}
+
+	const handleModelChange = (value) => {
+		return new Promise((resolve) => {
+			setModelVersion(value)
+			dispatch(updateChatModelVersion({ chatId: selectedChatId, modelVersion: value }))
+			resolve()
+		})
+	}
+
 	const contentValue = () => {
-		if (isShowSystemSetting) return <Setting onOpenAIKeyChange={handleOpenAIKeyChange} />
-		else return <ChatBox messages={messages} onSubmit={onSubmit} />
+		if (isShowSystemSetting)
+			return (
+				<Setting
+					onOpenAIKeyChange={handleOpenAIKeyChange}
+					onTongyiKeyChange={handleTongyiKeyChange}
+				/>
+			)
+		else
+			return (
+				<ChatBox
+					messages={messages}
+					onSubmit={onSubmit}
+					onReChat={handleReChat}
+					modelVersion={modelVersion}
+					onModelChange={handleModelChange}
+				/>
+			)
 	}
 
 	const backToChatBox = () => {
@@ -169,7 +235,6 @@ const Content = () => {
 				</div>
 				<div className={styles['content-chat']}>
 					<Header backToChatBox={backToChatBox} />
-					{isShowSystemSetting}
 					{contentValue()}
 				</div>
 			</div>

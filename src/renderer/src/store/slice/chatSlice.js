@@ -27,9 +27,22 @@ export const chatSlice = createSlice({
 			if (chatIndex !== -1) {
 				state.chatList[chatIndex].messages = [...newMessage]
 			}
+		},
+		updateChatModelVersion: (state, action) => {
+			const { chatId, modelVersion } = action.payload
+			const chatIndex = state.chatList.findIndex((item) => item.id === chatId)
+			if (chatIndex !== -1) {
+				state.chatList[chatIndex].modelVersion = modelVersion
+			}
 		}
 	}
 })
 
-export const { setSelectedChatId, setChatList, updateChatMessage, deleteChat } = chatSlice.actions
+export const {
+	setSelectedChatId,
+	setChatList,
+	updateChatMessage,
+	deleteChat,
+	updateChatModelVersion
+} = chatSlice.actions
 export default chatSlice.reducer
