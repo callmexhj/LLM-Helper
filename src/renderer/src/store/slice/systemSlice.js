@@ -4,10 +4,10 @@ const initialState = {
 	isShowSystemSetting: false,
 	modelConfig: {
 		OpenAI: {
-			apiKey: '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'
+			apiKey: ''
 		},
 		Tongyi: {
-			apiKey: 'sk-c7cc2109f9004e128aeaacca7da3329a'
+			apiKey: ''
 		}
 	},
 	isLoading: false
