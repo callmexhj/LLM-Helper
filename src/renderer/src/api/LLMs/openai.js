@@ -23,7 +23,6 @@ export const OpenAIChat = async (messages, openAiModelConfig, handleResponseOnCh
 			}
 		}
 	} catch (error) {
-		console.log(1111)
 		handleResponseOnChatBox({
 			isStop: true,
 			value: String(error),

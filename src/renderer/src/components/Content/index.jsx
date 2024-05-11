@@ -14,6 +14,7 @@ import {
 import {
 	setIsShowSystemSetting,
 	updateOpenAIConfig,
+	updateTongyiConfig,
 	setIsLoading
 } from '@renderer/store/slice/systemSlice'
 import { ConfigProvider, message } from 'antd'
@@ -45,10 +46,6 @@ const Content = () => {
 		}
 	}, [])
 
-	useEffect(() => {
-		console.log(messages)
-	}, [messages])
-
 	// 根据选取的chatId，更新messages
 	useEffect(() => {
 		console.log(selectedChatId, chatList)
@@ -74,7 +71,7 @@ const Content = () => {
 
 	// 当isLoading变化时，调用chat
 	useEffect(() => {
-		isLoading && chat(messages, modelConfig, handleResponseOnChatBox)
+		isLoading && chat(messages, modelConfig, handleResponseOnChatBox, modelVersion)
 	}, [isLoading])
 
 	// 当结束对话时，更新redux
@@ -167,6 +164,10 @@ const Content = () => {
 		dispatch(updateOpenAIConfig(target.value))
 	}
 
+	const handleTongyiKeyChange = ({ target }) => {
+		dispatch(updateTongyiConfig(target.value))
+	}
+
 	// 重置当前聊天记录
 	const handleReChat = () => {
 		const initMessages = [
@@ -177,6 +178,7 @@ const Content = () => {
 			}
 		]
 		setMessages([...initMessages])
+		dispatch(setIsLoading(false))
 		dispatch(
 			updateChatMessage({
 				chatId: selectedChatId,
@@ -194,7 +196,13 @@ const Content = () => {
 	}
 
 	const contentValue = () => {
-		if (isShowSystemSetting) return <Setting onOpenAIKeyChange={handleOpenAIKeyChange} />
+		if (isShowSystemSetting)
+			return (
+				<Setting
+					onOpenAIKeyChange={handleOpenAIKeyChange}
+					onTongyiKeyChange={handleTongyiKeyChange}
+				/>
+			)
 		else
 			return (
 				<ChatBox
